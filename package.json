@@ -1,0 +1,33 @@
+{
+  "name": "el-tiny-editor",
+  "version": "5.10.5",
+  "description": "A basic electron wrapper for TinyMCE",
+  "main": "main.js",
+  "repository": "https://github.com/mingong/WpfWebView2Playground",
+  "keywords": [
+    "Electron",
+    "TinyMCE"
+  ],
+  "author": "Mingong",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "js-beautify": "1.13.0",
+    "tinymce": "5.10.5"
+  },
+  "devDependencies": {
+    "electron": "13.0.0",
+    "electron-builder": "22.4.0",
+    "patch-package": "6.4.7"
+  },
+  "build": {
+    "appId": "Electron TinyMCE",
+    "win": {},
+    "asar": true
+  },
+  "scripts": {
+    "postinstall": "patch-package",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "start": "electron ."
+  }
+}

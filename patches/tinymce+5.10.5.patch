@@ -1,0 +1,73 @@
+diff --git a/node_modules/tinymce/themes/silver/theme.js b/node_modules/tinymce/themes/silver/theme.js
+index 864a2f9..090f31d 100644
+--- a/node_modules/tinymce/themes/silver/theme.js
++++ b/node_modules/tinymce/themes/silver/theme.js
+@@ -4318,6 +4318,15 @@
+     var focus$3 = function (element) {
+       return element.dom.focus();
+     };
++    
++    var focusfix$3 = function (element) {
++      /*
++      return element.dom.scrollTop = element.dom.scrollHeight;
++      */
++      // Setting a value to textarea moves the input cursor to the end. We want the selection at the beginni
++      return element.dom.setSelectionRange(0, 0);
++    };
++    
+     var blur$1 = function (element) {
+       return element.dom.blur();
+     };
+@@ -7998,6 +8007,10 @@
+         focusConfig.onFocus(component);
+       }
+     };
++    var focusfix$2 = function (component) {
++      focusfix$3(component.element);
++    };
++    
+     var blur = function (component, focusConfig) {
+       if (!focusConfig.ignore) {
+         blur$1(component.element);
+@@ -8010,6 +8023,7 @@
+     var FocusApis = /*#__PURE__*/Object.freeze({
+         __proto__: null,
+         focus: focus$2,
++        focusfix: focusfix$2,
+         blur: blur,
+         isFocused: isFocused
+     });
+@@ -31880,6 +31894,11 @@
+       var focus = function (name) {
+         getCompByName(access, name).each(Focusing.focus);
+       };
++      
++      var focusfix = function (name) {
++        getCompByName(access, name).each(Focusing.focusfix);
++      };
++      
+       var block = function (message) {
+         if (!isString(message)) {
+           throw new Error('The dialogInstanceAPI.block function should be passed a blocking message of type string as an argument');
+@@ -31927,6 +31946,7 @@
+         disable: disable,
+         enable: enable,
+         focus: focus,
++        focusfix: focusfix,
+         block: block,
+         unblock: unblock,
+         showTab: showTab,
+@@ -32413,6 +32433,13 @@
+           }, backstage);
+           ModalDialog.show(dialog.dialog);
+           dialog.instanceApi.setData(initialData);
++          
++          var itemfix = config.body.items[0].name;
++          
++          if (itemfix === 'code') {
++            dialog.instanceApi.focusfix(itemfix);
++          }
++          
+           return dialog.instanceApi;
+         };
+         return DialogManager.open(factory, config);

@@ -1,0 +1,3 @@
+# el-tiny-editor
+
+A basic electron wrapper for TinyMCE editor, with the most recent version and including every basic plugins...
